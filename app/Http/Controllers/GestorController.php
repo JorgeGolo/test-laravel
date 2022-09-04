@@ -113,9 +113,11 @@ class GestorController extends Controller
     public function addUserToActivity($iduser, $idactivity, $roleuser) {
   
         // aquí necesitamos saber a qué proyecto pertenece esta actividad
-        // consultar de la tabla activity el campo project_id de la activity con su id
 
-        $pro = Activity::select('project_id')->where('id' , $idactivity)->first();
+       // $pro = Activity::select('project_id')->where('id' , $idactivity)->first();
+
+        $pro = Activity::select('project_id')->find($idactivity);
+
         $proid=$pro->project_id;
 
         // comprobar si el usuario participa del proyecto
@@ -125,7 +127,7 @@ class GestorController extends Controller
 
         if ($rolu==NULL) {
 
-            return "El usuario no puede asignarse a la actividad";
+            return "El usuario no puede asignarse a la actividad.";
 
         } else {
 
@@ -135,7 +137,7 @@ class GestorController extends Controller
             $useract->role=$roleuser;
             $useract->save();
             
-            return "Usuario asignado";
+            return "Usuario asignado.";
 
         }
 
@@ -145,12 +147,9 @@ class GestorController extends Controller
 
         // necesitamos saber a qué actividad pertenece esta incidencia
 
-        $act = Issue::select('activity_id')->where('id' , $idissue)->first();
+        //$act = Issue::select('activity_id')->where('id' , $idissue)->first();
+        $act = Issue::select('activity_id')->find($idissue);
         
-        // ¿Es posible?
-        // $act = Issue::select('activity_id')->find($idissue);
-
-
         $actid=$act->activity_id;
         
         // y su rol en la actividad
@@ -170,7 +169,7 @@ class GestorController extends Controller
             $useriss->issue_id = $idissue; 
             $useriss->save();
             
-            return "Usuario asignado";
+            return "Usuario asignado.";
 
         }
 
