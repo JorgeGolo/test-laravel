@@ -15,6 +15,8 @@ EL GESTOR DESDE TINKER
 
 Llamar al controlador desde tinker
 $controller = app()->make('App\Http\Controllers\GestorController');
+$controller = app()->make('App\Http\Controllers\ProductController');
+$controller = app()->make('App\Http\Controllers\UserController');
 
 // Obtener actividades por id de proyecto
 app()->call([$controller, 'activitiesByProjectId'], ['id' => 2]);
