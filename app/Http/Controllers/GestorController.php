@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
 use App\Models\Activity;
-use App\Models\Project;
-use App\Models\User;
 use App\Models\Issue;
 use App\Models\Role;
 use App\Models\UserActivity;
@@ -59,24 +56,6 @@ Un usuario puede ser asignado a una incidencia si es responsable de la actividad
 class GestorController extends Controller
 {
 
-    public function activitiesByProjectId($id) {
-
-        return Project::find($id)->activities;
-
-    }
-
-    public function usersByProjectId($id) {
-
-        return Project::find($id)->users;
-
-    }
-
-    public function issuesByUserId($id) {
-
-        return User::find($id)->issues;
-
-    }
-
     public function addActivity($newactivity, $idproject) {
 
         $activ = new Activity;
@@ -114,8 +93,6 @@ class GestorController extends Controller
   
         // aquí necesitamos saber a qué proyecto pertenece esta actividad
 
-       // $pro = Activity::select('project_id')->where('id' , $idactivity)->first();
-
         $pro = Activity::select('project_id')->find($idactivity);
 
         $proid=$pro->project_id;
@@ -147,7 +124,6 @@ class GestorController extends Controller
 
         // necesitamos saber a qué actividad pertenece esta incidencia
 
-        //$act = Issue::select('activity_id')->where('id' , $idissue)->first();
         $act = Issue::select('activity_id')->find($idissue);
         
         $actid=$act->activity_id;
